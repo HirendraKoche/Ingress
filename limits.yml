@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-ns
+  
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+  namespace: ingress-ns
+spec:
+  limits:
+    - defaultRequest:
+        memory: 256Mi
+      default:
+        memory: 512Mi
+      type: Container
+
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-limit-range
+  namespace: ingress-ns
+spec:
+  limits:
+    - defaultRequest:
+        cpu: 100m
+      default:
+        cpu: 200m
+      type: Container

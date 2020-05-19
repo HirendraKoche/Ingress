@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: site1-ingress
+  namespace: ingress-ns
+spec:
+  rules:
+    - host: site1.127.0.0.1.nip.io
+      http:
+          paths:
+            - path: /
+              backend:
+                serviceName: site1-srv
+                servicePort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cheddar-ingress
+  namespace: ingress-ns
+spec:
+  rules:
+    - host: cheddar.127.0.0.1.nip.io
+      http:
+          paths:
+            - path: /
+              backend:
+                serviceName: cheddar-srv
+                servicePort: 80

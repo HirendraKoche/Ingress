@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: site1-dep
+  namespace: ingress-ns
+spec:
+  template:
+    metadata:
+      name: site1-temp
+      namespace: ingress-ns
+      labels:
+        app: site1-pod
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: site1 
+          image: site1:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+  replicas: 1
+  selector:
+    matchLabels:
+      app: site1-pod
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: site1-srv
+  namespace: ingress-ns
+spec:
+  selector:
+    app: site1-pod
+  ports:
+    - port: 80
+      targetPort: 80
+  

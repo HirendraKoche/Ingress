@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cheddar-dep
+  namespace: ingress-ns
+spec:
+  selector:
+    matchLabels:
+      app: cheddar-pod
+  template:
+    metadata:
+      labels:
+        app: cheddar-pod
+    spec:
+      containers:
+      - name: cheddar
+        image: errm/cheese:cheddar
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cheddar-srv
+  namespace: ingress-ns
+spec:
+  selector:
+    app: cheddar-pod
+  ports:
+  - port: 80
+    targetPort: 80
+
